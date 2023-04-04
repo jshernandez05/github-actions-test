@@ -1,0 +1,27 @@
+name: Joe
+age: 41
+address: 123 here dr.
+active: true
+key:
+    key: value
+    key2: 33
+    key3:
+        key: value
+        key2: value
+jsonObject: {key: value, key2: value, key3: value}
+array:
+    - item1
+    - item2
+    - item3
+jsonArray: [item1, item2, item3]
+objectsArray:
+    - key: value
+    - key2: value
+# > ignores new lines and writes as continous string
+longText: >
+    The cat jumped over
+    the hat and landed on his back
+# | preserves new line breaks in text string
+longText2: |
+    The cat jumped over
+    the hat and landed on his back
