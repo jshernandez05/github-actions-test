@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: get-payload
-        run: echo ${{ github.event.client.payload}}
+        run: echo ${{ github.event.client.payload }}
       - name: List Files Before Checkout
         run: |
           pwd
