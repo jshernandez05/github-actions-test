@@ -13,3 +13,4 @@ jobs:
           echo ${{ startsWith('hello', 'he') }}
           echo ${{ endsWith('lo', 'lo') }}
           echo ${{ format('hello {0} {1}{2}', 'World', '!', '!') }}
+          echo 'prod success'
