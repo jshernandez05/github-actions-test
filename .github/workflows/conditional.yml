@@ -1,0 +1,51 @@
+name: Context
+on: [push, pull_request]
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      devl: ${{ steps.filter.outputs.devl }}
+      prod: ${{ steps.filter.outputs.prod }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            devl:
+              - 'devl/**'
+            prod:
+              - 'prod/**'
+  devl:
+    needs: changes
+    if: ${{ needs.changes.outputs.devl == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump expressions
+        run: |
+          echo ${{ contains('hello', 'll') }}
+          echo ${{ startsWith('hello', 'he') }}
+          echo ${{ endsWith('lo', 'lo') }}
+          echo ${{ format('hello {0} {1}{2}', 'World', '!', '!') }}
+  prod:
+    needs: changes
+    if: ${{ needs.changes.outputs.prod == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
+      - name: Dump job context
+        if: failure()
+        run: echo '${{ toJSON(job) }}'
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
+      - name: Dump runner context
+        run: echo '${{ toJSON(runner) }}'
+      - name: Dump strategy context
+        run: echo '${{ toJSON(strategy) }}'
+      - name: Dump matrix context
+        run: echo '${{ toJSON(matrix) }}'
