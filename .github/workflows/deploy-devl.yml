@@ -1,0 +1,23 @@
+name: DEPLOY DEVL
+
+on:
+  push:
+    paths-ignore:
+      - "prod/**"
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Shell Commands"]
+    branches: [main]
+    types:
+      - completed
+
+jobs:
+  devl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump expressions
+        run: |
+          echo ${{ contains('hello', 'll') }}
+          echo ${{ startsWith('hello', 'he') }}
+          echo ${{ endsWith('lo', 'lo') }}
+          echo ${{ format('hello {0} {1}{2}', 'World', '!', '!') }}
